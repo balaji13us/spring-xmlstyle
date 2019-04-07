@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="context1">
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+		<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+
+		<jdbcConnection connectionURL="jdbc:mysql://192.168.99.100:32791/mydb"
+			driverClass="com.mysql.cj.jdbc.Driver" password="password" userId="root" />
+		<javaModelGenerator targetPackage="me.bs.java.usermanagement.backend.model"
+			targetProject="usermanagement\src\main\java">
+			<!-- <property name="constructorBased" value="true" /> -->
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="me.bs.java.usermanagement.backend.mapper.xml"
+			targetProject="usermanagement\src\main\java" />
+		<javaClientGenerator targetPackage="me.bs.java.usermanagement.backend.mapper"
+			targetProject="usermanagement\src\main\java" type="ANNOTATEDMAPPER" />
+		<!-- type=ANNOTATEDMAPPER MIXEDMAPPER XMLMAPPER -->
+		<table tableName="ADDRESS">
+			<!-- <columnOverride column="???" property="???" /> -->
+			<generatedKey column="ID" sqlStatement="MySql" identity="true" />
+			
+		</table>
+		<table tableName="PHONE">
+			<!-- <columnOverride column="???" property="???" /> -->
+			<generatedKey column="ID" sqlStatement="MySql" identity="true" />
+			
+		</table>
+		<table tableName="PERSON">
+			<generatedKey column="ID" sqlStatement="MySql" identity="true" />
+
+		</table>
+
+
+
+		<!-- <plugin type="com.google.code.mybatis.generator.plugins.ModelBuilderPlugin"> 
+			<property name="builderClassName" value="Builder" /> <property name="excludeClassNamesRegexp" 
+			value="com.*Blog" /> </plugin> -->
+	</context>
+</generatorConfiguration>

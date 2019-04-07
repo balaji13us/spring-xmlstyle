@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+  	http://www.springframework.org/schema/beans/spring-beans.xsd
+  	http://www.springframework.org/schema/context
+  	http://www.springframework.org/schema/context/spring-context.xsd
+  	http://www.springframework.org/schema/tx
+  	http://www.springframework.org/schema/tx/spring-tx.xsd
+  	http://www.springframework.org/schema/aop
+  	http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/oxm
+        http://www.springframework.org/schema/oxm/spring-oxm.xsd
+  	
+  	http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+         http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+	<context:annotation-config />
+	<tx:annotation-driven />
+	<context:component-scan base-package="me.bs.java.usermanagement"></context:component-scan>
+	<!-- <beans profile="oracle"> <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" /> <property 
+		name="url" value="jdbc:oracle:thin:@//ipaddress:1592/database" /> <property 
+		name="username" value="" /> <property name="password" value="" /> </bean> 
+		</beans> -->
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://192.168.99.100:32791/mydb" />
+		<property name="username" value="root" />
+		<property name="password" value="password" />
+	</bean>
+
+	<!-- <beans profile="h2"> -->
+	<!-- <jdbc:embedded-database id="dataSource" type="H2">
+		<jdbc:script location="classpath:schema.sql" />
+		<jdbc:script location="classpath:data.sql" />
+	</jdbc:embedded-database> -->
+	<!-- </beans> -->
+
+	<!-- Transaction Manager -->
+	<bean id="transactionManager" name="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<mybatis:scan base-package="me.bs.java.usermanagement.backend.mapper" />
+
+	<!-- since mybatis auto scan is applied this is not required -->
+	<!-- <bean id="mapper" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+		<property name="mapperInterface" value="me.bs.java.usermanagement.backend.mapper.PersonMapper" 
+		/> <property name="sqlSessionFactory" ref="sqlSessionFactory" /> </bean> -->
+
+	<!-- since contex:compoenent-scan is enabled add @Service in all required 
+		service classes. -->
+	<!-- <bean id="userService" class="me.bs.java.usermanagement.backend.service.UserService" 
+		/> -->
+
+</beans>
